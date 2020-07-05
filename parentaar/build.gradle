@@ -1,0 +1,63 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: "com.mobbeel.plugin"
+
+
+
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        //applicationId "com.bhadra.myapplication"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        //includeAllInnerDependencies true  // It's false for default
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    aarPlugin {
+        includeAllInnerDependencies true  // It's false for default
+    }
+}
+
+
+dependencies {
+    api 'com.madgag.spongycastle:prov:1.56.0.0' // <- Embed external dependency from any repository
+    api 'com.madgag.spongycastle:bcpkix-jdk15on:1.56.0.0'
+
+    //Multidex
+    api 'com.android.support:multidex:1.0.3'
+
+    api fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation project(':childaaar2-debug')
+    implementation project(':childaar1-debug')
+
+
+    //implementation project(":childaaar2-debug")
+/*    implementation project(":childaar1-debug")
+    implementation project(":parentaar:mytempchildaar1")*/
+/*    implementation(':childaaar2-debug') {
+        include group: 'com.bhadra.childaar2', module: 'native'
+    }*/
+}
+
+
